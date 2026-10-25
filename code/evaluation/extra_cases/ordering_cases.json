@@ -1,0 +1,87 @@
+{
+  "description": [
+    "Participant-authored ordering cases. Each case supplies steps in an",
+    "intentionally scrambled order and states the order the contract requires:",
+    "FINDING before REMEDIATION before VERIFICATION, findings ordered by severity",
+    "of exposure (remaining record, exposed PII, active flow, restore risk),",
+    "remediation ordered by dependency (disable flows and block restores before",
+    "changing records that depend on them), and verification ordered by operation",
+    "then system then resource. Step numbers must be consecutive from 1."
+  ],
+  "cases": [
+    {
+      "id": "order-findings-severity",
+      "input": [
+        ["VERIFICATION", "VERIFY_RECORD_ABSENT", "ABSENT", "account_service", "account_1"],
+        ["FINDING", "REPORT_ACTIVE_DATA_FLOW", "ACTIVE", "integration_service", "data_flow_1"],
+        ["FINDING", "REPORT_REMAINING_RECORD", "PRESENT", "search_service", "search_1"],
+        ["FINDING", "REPORT_EXPOSED_PII", "PRESENT", "support_platform", "support_1"]
+      ],
+      "expected_operations": [
+        "REPORT_REMAINING_RECORD",
+        "REPORT_EXPOSED_PII",
+        "REPORT_ACTIVE_DATA_FLOW",
+        "VERIFY_RECORD_ABSENT"
+      ]
+    },
+    {
+      "id": "order-remediation-dependency",
+      "input": [
+        ["REMEDIATION", "DELETE_RECORD", "ABSENT", "search_service", "search_1"],
+        ["REMEDIATION", "DISABLE_DATA_FLOW", "DISABLED", "integration_service", "data_flow_1"],
+        ["REMEDIATION", "BLOCK_RESTORE", "BLOCKED", "backup_service", "backup_1"],
+        ["REMEDIATION", "ANONYMIZE_RECORD", "ANONYMIZED", "analytics_platform", "analytics_1"]
+      ],
+      "expected_operations": [
+        "DISABLE_DATA_FLOW",
+        "BLOCK_RESTORE",
+        "DELETE_RECORD",
+        "ANONYMIZE_RECORD"
+      ]
+    },
+    {
+      "id": "order-verification-operation",
+      "input": [
+        ["VERIFICATION", "VERIFY_RESTORE_BLOCKED", "BLOCKED", "backup_service", "backup_1"],
+        ["VERIFICATION", "VERIFY_RECORD_ANONYMIZED", "ANONYMIZED", "analytics_platform", "analytics_1"],
+        ["VERIFICATION", "VERIFY_RECORD_PRESENT", "PRESENT", "security_service", "audit_record_1"],
+        ["VERIFICATION", "VERIFY_DATA_FLOW_DISABLED", "DISABLED", "integration_service", "data_flow_1"],
+        ["VERIFICATION", "VERIFY_RECORD_REDACTED", "REDACTED", "support_platform", "support_1"],
+        ["VERIFICATION", "VERIFY_RECORD_ABSENT", "ABSENT", "search_service", "search_1"]
+      ],
+      "expected_operations": [
+        "VERIFY_RECORD_ABSENT",
+        "VERIFY_RECORD_PRESENT",
+        "VERIFY_RECORD_REDACTED",
+        "VERIFY_RECORD_ANONYMIZED",
+        "VERIFY_DATA_FLOW_DISABLED",
+        "VERIFY_RESTORE_BLOCKED"
+      ]
+    },
+    {
+      "id": "order-phase-precedence",
+      "input": [
+        ["VERIFICATION", "VERIFY_RECORD_ABSENT", "ABSENT", "account_service", "account_1"],
+        ["REMEDIATION", "DELETE_RECORD", "ABSENT", "account_service", "account_1"],
+        ["FINDING", "REPORT_REMAINING_RECORD", "PRESENT", "account_service", "account_1"]
+      ],
+      "expected_operations": [
+        "REPORT_REMAINING_RECORD",
+        "DELETE_RECORD",
+        "VERIFY_RECORD_ABSENT"
+      ]
+    },
+    {
+      "id": "order-system-tiebreak",
+      "input": [
+        ["VERIFICATION", "VERIFY_RECORD_ABSENT", "ABSENT", "search_service", "search_9"],
+        ["VERIFICATION", "VERIFY_RECORD_ABSENT", "ABSENT", "account_service", "account_9"]
+      ],
+      "expected_operations": [
+        "VERIFY_RECORD_ABSENT",
+        "VERIFY_RECORD_ABSENT"
+      ],
+      "expected_resources": ["account_9", "search_9"]
+    }
+  ]
+}

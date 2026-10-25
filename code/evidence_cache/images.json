@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "note": [
+    "Vision-model transcription cache for screenshot evidence.",
+    "Each entry is keyed by the SHA-256 of the image bytes, so an edited or replaced",
+    "image invalidates its entry instead of silently reusing stale facts. The runtime",
+    "never guesses: a screenshot with no entry is reported as an extraction gap.",
+    "Only facts visible in the artifact are recorded: the resource reference the",
+    "console is scoped to, the record type, its displayed state, and the direct",
+    "identifiers actually shown. No deletion verdicts are stored here."
+  ],
+  "entries": {
+    "d5c32ca5b6e1a2b4bbe9f5d41835ef1fd5d4f7061dab9067a4f9f88cea3c1861": {
+      "file_name": "account_admin_console_20260926.png",
+      "observations": [
+        {
+          "system_id": "account_service",
+          "resource_id": "account_5762",
+          "category": "USER_PROFILE",
+          "state": "PRESENT",
+          "observed_at": "2026-09-26T11:00:00Z",
+          "emails": ["haruka.s1838@zoho.com"],
+          "phones": ["+81 90 7610 2507"],
+          "names": ["Haruka Sato"],
+          "references": ["user_11"],
+          "pii": true
+        }
+      ]
+    },
+    "75afdb0ae53a4510c83399a70d88073cb4fb2747454095756e4ddad1a8c70605": {
+      "file_name": "search_index_inspector_20260901.png",
+      "observations": [
+        {
+          "system_id": "search_service",
+          "resource_id": "search_428",
+          "category": "SEARCH_INDEX_ENTRY",
+          "state": "PRESENT",
+          "observed_at": "2026-09-01T05:58:21Z",
+          "emails": ["g.silva76@gmail.com"],
+          "phones": [],
+          "names": ["Gabriel Silva"],
+          "references": ["user_13"],
+          "pii": true
+        }
+      ]
+    },
+    "e81fabc93ea1b5f4c918d934cdb2bea05d61737adfcc29f281494f5d8ec46355": {
+      "file_name": "connector_management_console_20260807.png",
+      "observations": [
+        {
+          "system_id": "integration_service",
+          "resource_id": "data_flow_1121",
+          "category": "DATA_FLOW",
+          "state": "ACTIVE",
+          "observed_at": "2026-08-07T08:00:00Z",
+          "emails": ["jain.aditi@gmail.com"],
+          "phones": [],
+          "names": [],
+          "references": [],
+          "pii": false
+        },
+        {
+          "system_id": "integration_service",
+          "resource_id": "data_flow_9846",
+          "category": "DATA_FLOW",
+          "state": "ACTIVE",
+          "observed_at": "2026-08-07T08:00:00Z",
+          "emails": ["lucia-torres@gmail.com"],
+          "phones": [],
+          "names": [],
+          "references": [],
+          "pii": false
+        }
+      ]
+    },
+    "4e4cb259bc2010b622b0c53fe5872258f994fefc23452a83bb27473758693484": {
+      "file_name": "analytics_profile_view_20260713.png",
+      "observations": [
+        {
+          "system_id": "analytics_platform",
+          "resource_id": "analytics_7438",
+          "category": "ANALYTICS_PROFILE",
+          "state": "PRESENT",
+          "observed_at": "2026-07-13T14:22:00Z",
+          "emails": ["darwish.omar@icloud.com"],
+          "phones": [],
+          "names": ["Omar Darwish"],
+          "references": ["user_20"],
+          "pii": true
+        }
+      ]
+    },
+    "18b95c1bd8b8956e40216df935498a9f3c181ea2a69b5cd6d3c0841a816d5557": {
+      "file_name": "customer_export_console_20260618.png",
+      "observations": [
+        {
+          "system_id": "export_service",
+          "resource_id": "export_1260",
+          "category": "USER_EXPORT",
+          "state": "PRESENT",
+          "observed_at": "2026-06-18T06:42:00Z",
+          "emails": ["ingrid.dahl@outlook.com"],
+          "phones": [],
+          "names": [],
+          "references": [],
+          "pii": true
+        }
+      ]
+    },
+    "542b7aec17e6b2f38827896e7eb52c70e4bfaaca22433621be1f80f54884e944": {
+      "file_name": "support_ticket_console_20260524.png",
+      "observations": [
+        {
+          "system_id": "support_platform",
+          "resource_id": "support_1034",
+          "category": "SUPPORT_MESSAGE",
+          "state": "PRESENT",
+          "observed_at": "2026-05-24T07:00:00Z",
+          "emails": ["kagyeman8947@fastmail.com"],
+          "phones": [],
+          "names": ["Kofi Agyeman"],
+          "references": [],
+          "pii": true
+        }
+      ]
+    },
+    "2c246aa5843bec609b9ddfdf1154cd81e0fd61996f83954735e9856e48c18bf3": {
+      "file_name": "backup_restore_console_20260429.png",
+      "observations": [
+        {
+          "system_id": "backup_service",
+          "resource_id": "backup_9291",
+          "category": "BACKUP_ARCHIVE",
+          "state": "ACTIVE",
+          "observed_at": "2026-04-29T09:00:00Z",
+          "emails": ["bluepeakco@outlook.com"],
+          "phones": [],
+          "names": [],
+          "references": [],
+          "pii": true
+        },
+        {
+          "system_id": "backup_service",
+          "resource_id": "backup_9287",
+          "category": "BACKUP_ARCHIVE",
+          "state": "ACTIVE",
+          "observed_at": "2026-04-29T09:00:00Z",
+          "emails": ["areed1433@gmail.com"],
+          "phones": [],
+          "names": [],
+          "references": [],
+          "pii": true
+        }
+      ]
+    },
+    "ca59f693f4e7002466b3fdeaf1bb6763618770963dd811b60003772d07b4b03b": {
+      "file_name": "security_audit_explorer_20260905.png",
+      "observations": [
+        {
+          "system_id": "security_service",
+          "resource_id": "audit_record_003",
+          "category": "SECURITY_AUDIT_LOG",
+          "state": "PRESENT",
+          "observed_at": "2026-08-25T04:03:00Z",
+          "emails": [],
+          "phones": [],
+          "names": [],
+          "references": ["user_03"],
+          "pii": false
+        }
+      ]
+    },
+    "51fa0e6a38f8fa3629ba1b0d0b90b4ed139715956b97bfd09a6f1a6232c15df5": {
+      "file_name": "marketing_profile_console.png",
+      "observations": [
+        {
+          "system_id": "marketing_platform",
+          "resource_id": "marketing_001",
+          "category": "MARKETING_PROFILE",
+          "state": "PRESENT",
+          "observed_at": "2026-09-15T23:44:00Z",
+          "emails": ["sj.park@naver.com"],
+          "phones": ["+82 10-5837-9451"],
+          "names": ["Soo-jin Park"],
+          "references": [],
+          "pii": true
+        }
+      ]
+    }
+  }
+}

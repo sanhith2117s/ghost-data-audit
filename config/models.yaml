@@ -1,0 +1,30 @@
+# Model configuration for the deletion-audit agent.
+#
+# The *graded pipeline* (code/main.py, code/src/) is deterministic and makes
+# zero model calls. A model is used only for the optional, one-time transcription
+# of screenshot evidence (PNG/JPG), whose results are cached by SHA-256 content
+# hash in code/evidence_cache/images.json.
+#
+# Providers are referenced by name; API keys / tokens must never be committed and
+# are read from environment variables only.
+
+provider: opencode
+vision:
+  # Model used to transcribe screenshot evidence during development / cache builds.
+  model: deepseek-v4.1-flash-free
+  # Environment variable holding the provider API key / token.
+  api_key_env: OPENCODE_API_KEY
+  # Optional base URL for the provider router.
+  base_url: null
+
+  # Per-image token assumption used only for cost *estimates* in the usage report.
+  # The harness does not expose per-call token counts, so this is an assumption,
+  # not a measurement.
+  estimated_input_tokens_per_image: 900
+  estimated_output_tokens_per_image: 400
+
+  # Pricing assumption (USD per 1M tokens). Update from the provider's pricing page.
+  input_price_per_1m: 0.00
+  output_price_per_1m: 0.00
+
+text: null  # no text model is used by the graded pipeline

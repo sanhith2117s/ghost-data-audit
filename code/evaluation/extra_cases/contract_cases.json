@@ -1,0 +1,95 @@
+{
+  "description": [
+    "Participant-authored contract cases. Each case is a step list that must be",
+    "rejected by the validator, plus one legal list that must be accepted. They",
+    "protect the grader-facing contract: allowed operation/state pairs, phase order,",
+    "consecutive numbering from 1, one evidence source per finding, and an empty",
+    "evidence id for future work."
+  ],
+  "cases": [
+    {
+      "id": "contract-bad-operation-state",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "FINDING", "system_id": "account_service", "resource_id": "account_1",
+         "operation": "REPORT_REMAINING_RECORD", "state": "ABSENT", "evidence_id": "evidence_01"}
+      ],
+      "why": "REPORT_REMAINING_RECORD only ever reports PRESENT."
+    },
+    {
+      "id": "contract-invented-operation",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "FINDING", "system_id": "account_service", "resource_id": "account_1",
+         "operation": "REPORT_DELETION_GAP", "state": "PRESENT", "evidence_id": "evidence_01"}
+      ],
+      "why": "The operation vocabulary is closed."
+    },
+    {
+      "id": "contract-wrong-phase",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "FINDING", "system_id": "account_service", "resource_id": "account_1",
+         "operation": "DELETE_RECORD", "state": "ABSENT", "evidence_id": ""}
+      ],
+      "why": "DELETE_RECORD belongs to REMEDIATION."
+    },
+    {
+      "id": "contract-non-consecutive",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 2, "phase": "FINDING", "system_id": "search_service", "resource_id": "search_1",
+         "operation": "REPORT_REMAINING_RECORD", "state": "PRESENT", "evidence_id": "evidence_01"}
+      ],
+      "why": "Numbering restarts at 1 for every case."
+    },
+    {
+      "id": "contract-finding-without-evidence",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "FINDING", "system_id": "search_service", "resource_id": "search_1",
+         "operation": "REPORT_REMAINING_RECORD", "state": "PRESENT", "evidence_id": ""}
+      ],
+      "why": "A finding must cite the participant-visible evidence that proves it."
+    },
+    {
+      "id": "contract-unknown-evidence",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "FINDING", "system_id": "search_service", "resource_id": "search_1",
+         "operation": "REPORT_REMAINING_RECORD", "state": "PRESENT", "evidence_id": "evidence_999"}
+      ],
+      "why": "Evidence identifiers must exist in the supplied manifest/activity/audit data."
+    },
+    {
+      "id": "contract-future-work-with-evidence",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "REMEDIATION", "system_id": "search_service", "resource_id": "search_1",
+         "operation": "DELETE_RECORD", "state": "ABSENT", "evidence_id": "evidence_01"}
+      ],
+      "why": "Remediation has not happened yet, so it cannot cite evidence."
+    },
+    {
+      "id": "contract-extra-field",
+      "expected_valid": false,
+      "steps": [
+        {"step_no": 1, "phase": "VERIFICATION", "system_id": "search_service", "resource_id": "search_1",
+         "operation": "VERIFY_RECORD_ABSENT", "state": "ABSENT", "evidence_id": "evidence_01",
+         "confidence": "high"}
+      ],
+      "why": "Steps carry exactly the seven specified fields."
+    },
+    {
+      "id": "contract-legal-complete",
+      "expected_valid": true,
+      "steps": [
+        {"step_no": 1, "phase": "VERIFICATION", "system_id": "account_service", "resource_id": "account_1",
+         "operation": "VERIFY_RECORD_ABSENT", "state": "ABSENT", "evidence_id": "evidence_01"},
+        {"step_no": 2, "phase": "VERIFICATION", "system_id": "security_service", "resource_id": "audit_record_1",
+         "operation": "VERIFY_RECORD_PRESENT", "state": "PRESENT", "evidence_id": "evidence_01"}
+      ],
+      "why": "A complete case verifies absence and the policy-required retained record."
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "description": [
+    "Participant-authored intent cases. Every text is taken from the supplied",
+    "deletion_requests.csv / sample_deletion_requests.csv, plus four adversarial",
+    "texts written here to probe the boundaries of the documented rule: an",
+    "incidental negative inside a real erasure request, a refusal phrased with",
+    "'not asking', a retention instruction that also names the act of removal, and",
+    "a non-English access request. 'expected' is the authorisation decision the",
+    "task definition requires, not merely what the current implementation returns."
+  ],
+  "cases": [
+    {
+      "id": "intent-en-delete",
+      "text": "Please delete my account and confirm when it is done.",
+      "expected": true,
+      "why": "Direct erasure instruction."
+    },
+    {
+      "id": "intent-en-incidental-negative",
+      "text": "I changed the email on this account before deleting it. Please check that nothing tied to the old address was left behind, even in systems that do not display the email.",
+      "expected": true,
+      "why": "The negative clause is about display, not about deletion (case_12)."
+    },
+    {
+      "id": "intent-en-verify-only",
+      "text": "I found an old report saying my account still existed. Please check the latest state and confirm that the profile is gone and that remaining records cannot identify me.",
+      "expected": true,
+      "why": "An erasure follow-up may contain no deletion verb at all (case_26)."
+    },
+    {
+      "id": "intent-en-refusal",
+      "text": "Please stop the promotional emails. I still need the account and my order history, so I am not asking for deletion.",
+      "expected": false,
+      "why": "Marketing opt-out with an explicit refusal of deletion (case_534)."
+    },
+    {
+      "id": "intent-en-do-not-close",
+      "text": "I can't access my profile and need help resetting the login. Do not close the account.",
+      "expected": false,
+      "why": "Access request guarded by a narrow negation of closure (case_536)."
+    },
+    {
+      "id": "intent-en-export-retain",
+      "text": "I'd like to download my account information in a portable format. Please keep the account as it is.",
+      "expected": false,
+      "why": "Portability request with a retention instruction (case_535)."
+    },
+    {
+      "id": "intent-en-correction-retain",
+      "text": "My surname is misspelled on the account. Can you correct it without removing any of my records?",
+      "expected": false,
+      "why": "Correction request; 'removing' appears only inside a prohibition (case_537)."
+    },
+    {
+      "id": "intent-en-invoice-copy",
+      "text": "I need a copy of last year's invoices for my records. Please leave my profile and purchase history in place.",
+      "expected": false,
+      "why": "Copy request with an explicit retention instruction (case_540)."
+    },
+    {
+      "id": "intent-fr-erasure",
+      "text": "Je demande la suppression définitive du compte associé à cette adresse e-mail.",
+      "expected": true,
+      "why": "French erasure request (case_84)."
+    },
+    {
+      "id": "intent-pt-erasure",
+      "text": "Solicito a exclusão permanente da conta associada a este e-mail.",
+      "expected": true,
+      "why": "Portuguese erasure request (case_54)."
+    },
+    {
+      "id": "intent-ja-erasure",
+      "text": "このメールアドレスに紐づくアカウントを完全に削除してください。",
+      "expected": true,
+      "why": "Japanese erasure request."
+    },
+    {
+      "id": "intent-es-access",
+      "text": "Quiero recibir una copia de los datos que tienen sobre mí. No quiero que borren nada.",
+      "expected": false,
+      "why": "Spanish access request with a refusal to delete."
+    },
+    {
+      "id": "intent-de-erasure",
+      "text": "Bitte löschen Sie mein Konto und alle zugehörigen Daten dauerhaft.",
+      "expected": true,
+      "why": "German erasure request."
+    },
+    {
+      "id": "intent-en-partial",
+      "text": "Delete the data you hold about me, but keep invoices the law requires you to keep.",
+      "expected": true,
+      "why": "Erasure request that itself accepts a legal-hold exception."
+    }
+  ]
+}
